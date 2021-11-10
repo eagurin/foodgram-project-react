@@ -22,7 +22,7 @@ jobs:
     - name: Test with flake8 and django tests
       run: |
         python -m flake8
-    #     cd api_yamdb/
+        cd infra/
 
     # - name: Test with pytest
     #   run: |
@@ -60,7 +60,7 @@ jobs:
             username: ${{ secrets.USER }}
             key: ${{ secrets.SSH_KEY }}
             passphrase: ${{ secrets.PASSPHRASE }}
-            stack_file_name: docker-compose.yaml
+            stack_file_name: infra/docker-compose.yml
             script: |
               sudo docker pull ${{ secrets.DOCKER_REPOSITORY }}/yamdb_final
               sudo docker-compose stop
@@ -76,13 +76,13 @@ jobs:
               echo DB_PORT=${{ secrets.DB_PORT }} >> .env
               sudo docker-compose up -d --build
 
-  # send_message:
-  #   runs-on: ubuntu-latest
-  #   needs: deploy
-  #   steps:
-  #   - name: send message
-  #     uses: appleboy/telegram-action@master
-  #     with:
-  #       to: ${{ secrets.TELEGRAM_TO }}
-  #       token: ${{ secrets.TELEGRAM_TOKEN }}
-  #       message: ${{ github.workflow }} успешно выполнен!
+  send_message:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+    - name: send message
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: ${{ github.workflow }} успешно выполнен!

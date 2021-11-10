@@ -64,6 +64,7 @@ jobs:
             stack_file_name: infra/docker-compose.yml
             script: |
               sudo docker pull ${{ secrets.DOCKER_REPOSITORY }}/yamdb_final
+              cd infra/
               sudo docker-compose stop
               sudo docker-compose rm web
               touch .env

@@ -67,8 +67,9 @@ jobs:
               sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}
               sudo docker-compose stop
               sudo docker-compose rm backend
+              rm .env
               touch .env
-              echo DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
+              echo DJ_SECRET_KEY=${{ secrets.DJ_SECRET_KEY }} >> .env
               echo DEBUG=${{ secrets.DEBUG }} >> .env
               echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
               echo DB_NAME=${{ secrets.DB_NAME }} >> .env

@@ -44,11 +44,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:80"]
-CORS_URLS_REGEX = r"^/api/. *$"
-CORS_ORIGIN_ALLOW_ALL = True
-
-AUTH_USER_MODEL = "users.AppUser"
+AUTH_USER_MODEL = "users.User"
 
 ROOT_URLCONF = "foodgram.urls"
 
@@ -70,22 +66,21 @@ TEMPLATES = [
     },
 ]
 
-
 DATABASES = {
-    "default": {
-        "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
-        "NAME": os.environ.get("DB_NAME", "postgres"),
-        "USER": os.environ.get("POSTGRES_USER", "postgres"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "2222"),
-        "HOST": os.environ.get("DB_HOST", "db"),
-        "PORT": os.environ.get("DB_PORT", "5432"),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase'
     }
 }
 
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": "mydatabase.sqlite",
+#         "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
+#         "NAME": os.environ.get("DB_NAME", "postgres"),
+#         "USER": os.environ.get("POSTGRES_USER", "postgres"),
+#         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "2222"),
+#         "HOST": os.environ.get("DB_HOST", "db"),
+#         "PORT": os.environ.get("DB_PORT", "5432"),
 #     }
 # }
 
@@ -130,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru-ru"
 
 TIME_ZONE = "Europe/Moscow"
 

@@ -4,7 +4,7 @@ from django.db import models
 from .managers import AppUserManager
 
 
-class AppUser(AbstractUser):
+class User(AbstractUser):
     email = models.EmailField(
         unique=True, max_length=254, verbose_name="email"
     )
@@ -21,8 +21,8 @@ class AppUser(AbstractUser):
     objects = AppUserManager()
 
     class Meta:
-        verbose_name = "user"
-        verbose_name_plural = "users"
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
         app_label = "users"
 
     def __str__(self):
@@ -40,13 +40,13 @@ class AppUser(AbstractUser):
 
 class Follow(models.Model):
     user = models.ForeignKey(
-        AppUser,
+        User,
         on_delete=models.CASCADE,
         related_name="follower",
         verbose_name="Подписчик",
     )
     author = models.ForeignKey(
-        AppUser,
+        User,
         on_delete=models.CASCADE,
         related_name="following",
         verbose_name="Автор",

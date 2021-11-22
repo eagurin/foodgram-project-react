@@ -322,7 +322,7 @@
     "fields": {
       "name": "Can add user",
       "content_type": 8,
-      "codename": "add_appuser"
+      "codename": "add_user"
     }
   },
   {
@@ -331,7 +331,7 @@
     "fields": {
       "name": "Can change user",
       "content_type": 8,
-      "codename": "change_appuser"
+      "codename": "change_user"
     }
   },
   {
@@ -340,7 +340,7 @@
     "fields": {
       "name": "Can delete user",
       "content_type": 8,
-      "codename": "delete_appuser"
+      "codename": "delete_user"
     }
   },
   {
@@ -349,7 +349,7 @@
     "fields": {
       "name": "Can view user",
       "content_type": 8,
-      "codename": "view_appuser"
+      "codename": "view_user"
     }
   },
   {
@@ -714,7 +714,7 @@
   {
     "model": "contenttypes.contenttype",
     "pk": 8,
-    "fields": { "app_label": "users", "model": "appuser" }
+    "fields": { "app_label": "users", "model": "user" }
   },
   {
     "model": "contenttypes.contenttype",
@@ -780,7 +780,7 @@
     "fields": { "user": 34, "created": "2021-11-21T00:06:41.430" }
   },
   {
-    "model": "users.appuser",
+    "model": "users.user",
     "pk": 1,
     "fields": {
       "password": "",
@@ -799,7 +799,7 @@
     }
   },
   {
-    "model": "users.appuser",
+    "model": "users.user",
     "pk": 34,
     "fields": {
       "password": "pbkdf2_sha256$260000$xzmuckk1NTfmiOdATLXxpC$9rhlsaX7n5YqCcYB1D/+mNi/NEJl9P5rMU34swLPkRY=",
@@ -818,7 +818,7 @@
     }
   },
   {
-    "model": "users.appuser",
+    "model": "users.user",
     "pk": 35,
     "fields": {
       "password": "",
@@ -837,7 +837,7 @@
     }
   },
   {
-    "model": "users.appuser",
+    "model": "users.user",
     "pk": 68,
     "fields": {
       "password": "",
@@ -856,7 +856,7 @@
     }
   },
   {
-    "model": "users.appuser",
+    "model": "users.user",
     "pk": 69,
     "fields": {
       "password": "",

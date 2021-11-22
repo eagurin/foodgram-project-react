@@ -10,8 +10,7 @@ services:
       - ../.env
 
   backend:
-    build: ../backend
-    image: goldmeat/foodgram-project-react
+    image: goldmeat/foodgram-project-react:latest
     restart: always
     volumes:
       - static_value:/code/static/

@@ -47,7 +47,8 @@ jobs:
           uses: docker/build-push-action@v2
           with:
             push: true
-            context: ./backend/
+            context: ./backend
+            file: ./backend/Dockerfile
             tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
 
   deploy:
@@ -63,7 +64,7 @@ jobs:
             passphrase: ${{ secrets.PASSPHRASE }}
             stack_file_name: docker-compose.yml
             script: |
-              sudo docker pull ${{ secrets.DOCKER_REPOSITORY }}/yamdb_final
+              sudo docker pull ${{ secrets.DOCKER_REPOSITORY }}/${{ secrets.DOCKER_REPOSITORY }}
               sudo docker-compose stop
               sudo docker-compose rm web
               touch .env
@@ -76,6 +77,9 @@ jobs:
               echo DB_HOST=${{ secrets.DB_HOST }} >> .env
               echo DB_PORT=${{ secrets.DB_PORT }} >> .env
               sudo docker-compose up -d --build
+              sudo docker-compose exec -T backend python manage.py makemigrations
+              sudo docker-compose exec -T backend python manage.py migrate --noinput
+              sudo docker-compose exec -T backend python manage.py collectstatic --no-input
 
   send_message:
     runs-on: ubuntu-latest

@@ -10,10 +10,7 @@ services:
       - ../.env
 
   backend:
-    build:
-      context: ../backend
-      dockerfile: Dockerfile
-    # image: goldmeat/foodgram-project-react:latest
+    image: goldmeat/foodgram-project-react:latest
     restart: always
     volumes:
       - static_value:/code/static/
@@ -24,11 +21,9 @@ services:
       - ../.env
 
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: goldmeat/foodgram-frontend-react:latest
     volumes:
-      - ../frontend/:/app/result_build/
+      - frontend_data:/app/result_build/
     depends_on:
       - backend
 
@@ -38,7 +33,7 @@ services:
       - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ../frontend/build:/usr/share/nginx/html/
+      - frontend_data:/usr/share/nginx/html/
       - ../docs/redoc.html:/usr/share/nginx/html/api/docs/redoc.html
       - ../docs/openapi-schema.yml:/usr/share/nginx/html/api/docs/openapi-schema.yml
       - static_value:/var/html/static/

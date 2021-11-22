@@ -10,13 +10,8 @@ services:
       - ../.env
 
   backend:
-    build:
-      context: ../backend
-      dockerfile: Dockerfile
+    image: goldmeat/foodgram-project-react
     restart: always
-    ports:
-      - 8000:8000
-      - 3000:3000
     volumes:
       - static_value:/code/static/
       - media_value:/code/media/

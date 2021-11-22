@@ -10,6 +10,7 @@ services:
       - ../.env
 
   backend:
+    build: ../backend
     image: goldmeat/foodgram-project-react
     restart: always
     volumes:

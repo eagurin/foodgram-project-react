@@ -7,13 +7,10 @@ User = get_user_model()
 
 class Ingredient(models.Model):
     name = models.CharField(
-        verbose_name="Название ингредиента", 
-        max_length=100,
-        unique=True
+        verbose_name="Название ингредиента", max_length=100, unique=True
     )
     measurement_unit = models.CharField(
-        verbose_name="Единица измерения",
-        max_length=20
+        verbose_name="Единица измерения", max_length=20
     )
 
     class Meta:
@@ -26,29 +23,24 @@ class Ingredient(models.Model):
 
 
 class Tag(models.Model):
-    BLUE = '#0000FF'
-    ORANGE = '#FFA500'
-    GREEN = '#008000'
-    PURPLE = '#800080'
-    YELLOW = '#FFFF00'
+    BLUE = "#0000FF"
+    ORANGE = "#FFA500"
+    GREEN = "#008000"
+    PURPLE = "#800080"
+    YELLOW = "#FFFF00"
 
     COLOR_CHOICES = [
-        (BLUE, 'Синий'),
-        (ORANGE, 'Оранжевый'),
-        (GREEN, 'Зеленый'),
-        (PURPLE, 'Фиолетовый'),
-        (YELLOW, 'Желтый'),
+        (BLUE, "Синий"),
+        (ORANGE, "Оранжевый"),
+        (GREEN, "Зеленый"),
+        (PURPLE, "Фиолетовый"),
+        (YELLOW, "Желтый"),
     ]
     name = models.CharField(
-        verbose_name="Название тега",
-        max_length=100,
-        unique=True
+        verbose_name="Название тега", max_length=100, unique=True
     )
     color = models.CharField(
-        verbose_name="Цвет",
-        max_length=7,
-        unique=True,
-        choices=COLOR_CHOICES
+        verbose_name="Цвет", max_length=7, unique=True, choices=COLOR_CHOICES
     )
     slug = models.SlugField(
         verbose_name="slug",
@@ -72,34 +64,21 @@ class Recipe(models.Model):
         on_delete=models.CASCADE,
         related_name="recipes",
     )
-    name = models.CharField(
-        verbose_name="Название",
-        max_length=100
-    )
-    image = models.ImageField(
-        verbose_name="Изображение",
-        upload_to="recipes/"
-    )
-    text = models.TextField(
-        verbose_name="Описание"
-    )
+    name = models.CharField(verbose_name="Название", max_length=100)
+    image = models.ImageField(verbose_name="Изображение", upload_to="recipes/")
+    text = models.TextField(verbose_name="Описание")
     ingredients = models.ManyToManyField(
         Ingredient,
-        through='IngredientAmount',
+        through="IngredientAmount",
         verbose_name="Ингредиенты",
-        related_name='recipes'
+        related_name="recipes",
     )
-    tags = models.ManyToManyField(
-        Tag,
-        verbose_name="Теги"
-    )
+    tags = models.ManyToManyField(Tag, verbose_name="Теги")
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name="Время приготовления (мин.)"
     )
     pub_date = models.DateTimeField(
-        "date published",
-        auto_now_add=True,
-        db_index=True
+        "date published", auto_now_add=True, db_index=True
     )
 
     class Meta:
@@ -128,8 +107,7 @@ class IngredientInRecipe(models.Model):
         verbose_name="Количество ингредиента",
         validators=[
             MinValueValidator(
-                1,
-                'Количество ингредиентов должно быть больше "0"'
+                1, 'Количество ингредиентов должно быть больше "0"'
             ),
         ],
     )
@@ -139,8 +117,7 @@ class IngredientInRecipe(models.Model):
         verbose_name_plural = "Ингредиенты в рецепте"
         constraints = [
             models.UniqueConstraint(
-                fields=["recipe", "ingredients"],
-                name="uniq_ingred_amount"
+                fields=["recipe", "ingredients"], name="uniq_ingred_amount"
             )
         ]
 
@@ -157,31 +134,30 @@ class IngredientAmount(models.Model):
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
-        verbose_name='Ингридиент',
+        verbose_name="Ингридиент",
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        verbose_name='Рецепт',
+        verbose_name="Рецепт",
     )
     amount = models.PositiveSmallIntegerField(
         validators=(
             MinValueValidator(
-                1,
-                message='Минимальное количество ингридиентов 1'
+                1, message="Минимальное количество ингридиентов 1"
             ),
         ),
-        verbose_name='Количество',
+        verbose_name="Количество",
     )
 
     class Meta:
-        ordering = ['-id']
-        verbose_name = 'Количество ингридиента'
-        verbose_name_plural = 'Количество ингридиентов'
+        ordering = ["-id"]
+        verbose_name = "Количество ингридиента"
+        verbose_name_plural = "Количество ингридиентов"
         constraints = [
             models.UniqueConstraint(
-                fields=['ingredient', 'recipe'],
-                name='unique ingredients recipe'
+                fields=["ingredient", "recipe"],
+                name="unique ingredients recipe",
             )
         ]
 
@@ -190,23 +166,23 @@ class Favorite(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='Пользователь',
+        verbose_name="Пользователь",
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        related_name='favorites',
-        verbose_name='Рецепт',
+        related_name="favorites",
+        verbose_name="Рецепт",
     )
 
     class Meta:
-        ordering = ['-id']
-        verbose_name = 'Избранное'
-        verbose_name_plural = 'Избранные'
+        ordering = ["-id"]
+        verbose_name = "Избранное"
+        verbose_name_plural = "Избранные"
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'recipe'],
-                name='unique favorite recipe for user'
+                fields=["user", "recipe"],
+                name="unique favorite recipe for user",
             )
         ]
 
@@ -231,7 +207,6 @@ class Cart(models.Model):
         verbose_name_plural = "В корзине"
         constraints = [
             models.UniqueConstraint(
-                fields=["user", "recipe"], 
-                name="unique cart user"
+                fields=["user", "recipe"], name="unique cart user"
             )
         ]

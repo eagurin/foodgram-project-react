@@ -133,8 +133,15 @@ dmypy.json
 
 .DS_Store
 
+.vscode/
+*.code-workspace
+
+backend/.env
+.env
+
 static/
 posts/static/
 media/
 media_value/
 static_value/
+fixtures/

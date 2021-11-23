@@ -14,9 +14,7 @@ from .models import Cart, Favorite, Ingredient, IngredientAmount, Recipe, Tag
 from .pagination import LimitPageNumberPagination
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
-    CropRecipeSerializer,
-    IngredientSerializer,
-    RecipeSerializer,
+    CropRecipeSerializer, IngredientSerializer, RecipeSerializer,
     TagSerializer,
 )
 

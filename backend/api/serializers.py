@@ -141,7 +141,6 @@ class RecipeSerializer(serializers.ModelSerializer):
         if "tags" in self.initial_data:
             tags_data = validated_data.pop("tags")
             recipe.tags.set(tags_data)
-        super().update(recipe, validated_data)
         return super().update(recipe, validated_data)
 
 

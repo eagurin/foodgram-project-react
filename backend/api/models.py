@@ -90,46 +90,6 @@ class Recipe(models.Model):
         return self.name
 
 
-class IngredientInRecipe(models.Model):
-    ingredients = models.ForeignKey(
-        Ingredient,
-        verbose_name="Ингредиенты",
-        on_delete=models.PROTECT,
-        related_name="ingredients_amount",
-    )
-    recipe = models.ForeignKey(
-        Recipe,
-        verbose_name="Рецепт ингредиента",
-        on_delete=models.CASCADE,
-        related_name="ingredients_amount",
-    )
-    amount = models.PositiveSmallIntegerField(
-        verbose_name="Количество ингредиента",
-        validators=[
-            MinValueValidator(
-                1, 'Количество ингредиентов должно быть больше "0"'
-            ),
-        ],
-    )
-
-    class Meta:
-        verbose_name = "Ингредиенты в рецепте"
-        verbose_name_plural = "Ингредиенты в рецепте"
-        constraints = [
-            models.UniqueConstraint(
-                fields=["recipe", "ingredients"], name="uniq_ingred_amount"
-            )
-        ]
-
-    def __str__(self):
-        return (
-            f"Понадобится {self.amount}"
-            f"{self.ingredients.measurement_unit}. "
-            f'"{self.ingredients.name}"'
-            f' для "{self.recipe}"'
-        )
-
-
 class IngredientAmount(models.Model):
     ingredient = models.ForeignKey(
         Ingredient,

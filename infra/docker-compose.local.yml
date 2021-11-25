@@ -10,18 +10,22 @@ services:
       - ../.env
 
   backend:
-    image: goldmeat/foodgram-project-react:latest
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
     restart: always
+    depends_on:
+      - db
     volumes:
       - static_value:/code/static/
       - media_value:/code/media/
-    depends_on:
-      - db
     env_file:
-      - ../.env
+    - ../.env
 
   frontend:
-    image: goldmeat/foodgram-frontend-react:latest
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
     volumes:
       - frontend_data:/app/result_build/
     depends_on:

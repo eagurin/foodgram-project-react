@@ -140,4 +140,4 @@ backend/.env
 .env
 
 static/
-media/
+# media/
